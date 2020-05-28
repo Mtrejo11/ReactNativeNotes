@@ -2,7 +2,7 @@ import React from "react";
 import styles from "./styles";
 import { View, Text, ScrollView } from "react-native";
 import { CheckBox } from 'react-native-elements'
-import { colors } from "../../screens/utils/colors";
+import { colors } from "../../utils/colors";
 
 const NoteComponent = (props) => {
     const { note, done } = props.note

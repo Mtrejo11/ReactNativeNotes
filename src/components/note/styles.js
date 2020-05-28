@@ -1,5 +1,5 @@
 import { StyleSheet } from "react-native";
-import { colors } from '../../screens/utils/colors'
+import { colors } from '../../utils/colors'
 const styles = StyleSheet.create({
     cardContainer: {
         backgroundColor: colors.lighterGray,

@@ -13,10 +13,9 @@ import {
 
 // Importing Styles
 import styles from "./styles";
-import globalStyles from "../utils/globalStyles";
+import globalStyles from "../../utils/globalStyles";
 
 import NoteComponent from "../../components/note";
-import { CheckBox } from 'react-native-elements'
 
 const initState = {
     newNote: '',
