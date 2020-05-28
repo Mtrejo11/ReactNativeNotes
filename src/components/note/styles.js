@@ -8,7 +8,7 @@ const styles = StyleSheet.create({
         borderRadius: 15,
         paddingVertical: 5,
         flexDirection: 'row',
-        marginBottom:15,
+        marginBottom: 15,
     },
     checkContainer: {
         height: '50%',
@@ -19,9 +19,12 @@ const styles = StyleSheet.create({
         width: '85%',
         paddingHorizontal: 10,
     },
-    boxesContainer:{
-        width: '15%',  
-        paddingRight:10,
+    boxesContainer: {
+        width: '15%',
+        paddingRight: 10,
+    },
+    text: {
+        color: colors.dark
     }
 
 

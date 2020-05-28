@@ -10,7 +10,7 @@ const NoteComponent = (props) => {
         <View style={styles.cardContainer}>
             <ScrollView style={styles.noteContainer}>
 
-                <Text>{note}</Text>
+                <Text style={styles.text}>{note}</Text>
             </ScrollView>
             <View style={styles.boxesContainer}>
                 <View style={styles.checkContainer}>
