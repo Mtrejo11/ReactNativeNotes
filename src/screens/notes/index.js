@@ -2,25 +2,86 @@
 import React, { Component } from 'react';
 import {
     SafeAreaView,
-    StyleSheet,
-    ScrollView,
+    TextInput,
     View,
     Text,
     StatusBar,
+    TouchableOpacity,
+    FlatList,
+    Alert
 } from 'react-native';
-import { Input } from 'react-native-elements';
 
 // Importing Styles
 import styles from "./styles";
 import globalStyles from "../utils/globalStyles";
-const initState = {}
+
+import NoteComponent from "../../components/note";
+import { CheckBox } from 'react-native-elements'
+
+const initState = {
+    newNote: '',
+    savedNotes: [],
+    notesFlag: false,
+}
 
 class NotesScreen extends Component {
     constructor(props) {
         super(props)
-        state = {
+        this.state = {
             ...initState
         }
+    }
+
+    _textChangeHandler = (text) => {
+        this.setState({ newNote: text })
+    }
+
+    _clearNoteHandler = () => {
+        this.setState({ newNote: '' })
+    }
+
+    _saveNoteHandler = () => {
+        const notes = this.state.savedNotes
+        notes.push({ note: this.state.newNote, done: false })
+        this.setState({ savedNotes: notes, newNote: '', notesFlag: !this.state.notesFlag })
+    }
+
+    _checkDoneHandler = (index) => {
+        const notes = this.state.savedNotes
+        if (notes[index].done) {
+            notes[index].done = false
+            notes.unshift(notes.splice(index, 1)[0])
+        }
+        else {
+            notes[index].done = true
+            notes.push(notes.splice(index, 1)[0])
+        }
+
+        this.setState({ savedNotes: notes, notesFlag: !this.state.notesFlag })
+    }
+
+    _removeNoteHandler = (index) => {
+        Alert.alert(
+            'Warning!',
+            'Are you sure you want to delete this note?',
+            [
+                {
+                    text: 'No',
+                    style: 'cancel'
+
+                },
+                {
+                    text: 'Yes',
+                    onPress: () => {
+                        const notes = this.state.savedNotes
+                        notes.splice(index, 1)
+                        this.setState({ savedNotes: notes, notesFlag: !this.state.notesFlag })
+                    },
+                },
+            ],
+            { cancelable: false }
+        );
+
     }
 
     render() {
@@ -36,20 +97,44 @@ class NotesScreen extends Component {
                             <Text style={globalStyles.headerText}>My Notes</Text>
                         </View>
                         <View style={styles.inputContainer}>
-                            <Input
-                                placeholder="Comment"
-                                leftIcon={{ type: 'font-awesome', name: 'comment' }}
-                                style={styles}
-                                onChangeText={value => this.setState({ comment: value })}
+                            <TextInput
+                                style={styles.input}
+                                onChangeText={text => this._textChangeHandler(text)}
+                                multiline
+                                placeholder={'Write your note here'}
+                                value={this.state.newNote}
                             />
-
+                            <View style={styles.buttonsContainer}>
+                                <TouchableOpacity onPress={this._clearNoteHandler}>
+                                    <Text style={styles.clearButtonText}>Clear</Text>
+                                </TouchableOpacity>
+                                <TouchableOpacity
+                                    style={this.state.newNote === '' ? styles.saveButtonDisabled : styles.saveButton} disabled={this.state.newNote === ''}
+                                    onPress={() => this._saveNoteHandler()}
+                                >
+                                    <Text style={styles.saveButtonText}>Save</Text>
+                                </TouchableOpacity>
+                            </View>
                         </View>
                         <View style={styles.notesContainer}>
-                            <Text style={globalStyles.text}>My Notes</Text>
+                            {
+                                this.state.savedNotes.length === 0 ?
+                                    (
+                                        <Text style={globalStyles.text}>Notes list is empty.</Text>
+                                    ) :
+                                    (
+
+                                        <FlatList
+                                            extraData={this.state.notesFlag}
+                                            data={this.state.savedNotes}
+                                            style={{ width: '90%' }}
+                                            keyExtractor={(value, index) => index.toString()}
+                                            renderItem={value => <NoteComponent note={value.item} doneHandler={() => this._checkDoneHandler(value.index)} removeHandler={() => this._removeNoteHandler(value.index)} />}
+                                        />
+                                    )
+                            }
 
                         </View>
-
-
                     </View>
                 </SafeAreaView>
             </>

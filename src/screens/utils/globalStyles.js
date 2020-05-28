@@ -6,11 +6,11 @@ const styles = StyleSheet.create({
         height: '100%',
     },
     text: {
-        color: colors.dark,
-        fontSize: 20
+        color: colors.gray,
+        fontSize: 16
     },
     headerText: {
-        color: colors.dark,
+        color: colors.white,
         fontSize: 20,
         fontWeight: '500'
     }

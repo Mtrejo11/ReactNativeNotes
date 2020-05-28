@@ -1,9 +1,12 @@
 export const colors = {
     white: '#FFFFFF',
     black: '#000000',
-    primary: '#5fdde5',
-    secondary: '#f4ea8e',
+    primary: '#00c666',
+    secondary: '#0288ee',
+    complementary: '#c60060',
     dark: '#3f3f44',
-    lime: '#cceabb'
+    gray: '#BABAC0',
+    lime: '#cceabb',
+    lighterGray: '#f5f5f1',
 
 }
