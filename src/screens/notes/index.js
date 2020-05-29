@@ -41,7 +41,7 @@ class NotesScreen extends Component {
 
     _saveNoteHandler = () => {
         const notes = this.state.savedNotes
-        notes.push({ note: this.state.newNote, done: false })
+        notes.unshift({ note: this.state.newNote, done: false })
         this.setState({ savedNotes: notes, newNote: '', notesFlag: !this.state.notesFlag })
     }
 
