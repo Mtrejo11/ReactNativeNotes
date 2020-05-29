@@ -6,7 +6,6 @@ export const colors = {
     complementary: '#c60060',
     dark: '#3f3f44',
     gray: '#BABAC0',
-    lime: '#cceabb',
     lighterGray: '#f5f5f1',
 
 }
